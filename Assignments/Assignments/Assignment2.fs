@@ -12,11 +12,17 @@
 
     let rec removeOddIdx (xs: 'a list) =
         match xs with
-        | [] -> []
         | head::head2::tail -> head :: removeOddIdx tail
+        | [_] -> xs
+        | _ -> []
         
         
-    let combinePair _ = failwith "not implemented"
+        
+    let rec combinePair (xs: 'a list) =
+        match xs with
+        | head::head2::tail -> (head, head2) :: combinePair tail
+        | _ -> []
+        
 
     type complex = unit // Fill in your type here
     let mkComplex _ = failwith "not implemented"
