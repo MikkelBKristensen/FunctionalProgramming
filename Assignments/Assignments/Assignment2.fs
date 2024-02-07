@@ -1,4 +1,6 @@
-﻿module Assignments.Assignment2
+﻿module Assignment2
+
+    open Microsoft.FSharp.Collections
 
     let rec downto1 =
         fun n ->
@@ -32,9 +34,15 @@
     let (|-|) _ = failwith "not implemented"
     let (|/|) _ = failwith "not implemented"
 
-    let explode1 _ = failwith "not implemented"
-
-    let rec explode2 _ = failwith "not implemented"
+    let explode1 (s:string) =
+        if s.Length > 1 then
+            Seq.toList(s)
+        else []
+        
+    let rec explode2 (s:string) =
+        match s with
+        | "" -> []
+        | s -> s[0] :: explode2 s[1..]
 
     let implode _ = failwith "not implemented"
     let implodeRev _ = failwith "not implemented"
