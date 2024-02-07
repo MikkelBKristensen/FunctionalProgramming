@@ -44,7 +44,9 @@
         | "" -> []
         | s -> s[0] :: explode2 s[1..]
 
-    let implode _ = failwith "not implemented"
+    let implode (cs: list<char>) = s:string + 
+        
+        
     let implodeRev _ = failwith "not implemented"
 
     let toUpper _ = failwith "not implemented"
