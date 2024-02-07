@@ -44,7 +44,8 @@
         | "" -> []
         | s -> s[0] :: explode2 s[1..]
 
-    let implode (cs: list<char>) = s:string + 
+    let implode (cs: list<char>) : string =
+        List.foldBack (fun char acc -> string char + acc) cs ""
         
         
     let implodeRev _ = failwith "not implemented"
