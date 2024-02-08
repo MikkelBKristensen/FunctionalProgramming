@@ -48,7 +48,7 @@
         List.foldBack (fun char acc -> string char + acc) cs ""
         
         
-    let implodeRev _ = failwith "not implemented"
+    let implodeRev (cs: list<char>) : string = failwith "todo"
 
     let toUpper _ = failwith "not implemented"
 
