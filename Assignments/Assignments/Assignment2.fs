@@ -26,13 +26,31 @@
         | _ -> []
         
 
-    type complex = unit // Fill in your type here
-    let mkComplex _ = failwith "not implemented"
-    let complexToPair _ = failwith "not implemented"
-    let (|+|) _ = failwith "not implemented"
-    let (|*|) _ = failwith "not implemented"
-    let (|-|) _ = failwith "not implemented"
-    let (|/|) _ = failwith "not implemented"
+    type complex = { Real : float; Imaginary : float } // Fill in your type here
+    let mkComplex float1 float2 = 
+        let number = { Real = float1; Imaginary = float2 }
+        number
+    let complexToPair (complexNumber: complex) = 
+        (complexNumber.Real, complexNumber.Imaginary)
+
+    let (|+|) (number1: complex) (number2: complex) = 
+        let complexNumber = { Real = number1.Real + number2.Real; Imaginary = number1.Imaginary + number2.Imaginary }  
+        complexNumber
+
+    let (|*|) (number1: complex) (number2: complex) = 
+        let complexNumber = { Real = (number1.Real * number2.Real) - (number1.Imaginary * number2.Imaginary); Imaginary = (number1.Imaginary * number2.Real) + (number1.Real * number2.Imaginary) }
+        complexNumber
+
+    let (|-|) (number1: complex) (number2: complex) = 
+        let complexNumber =  { Real = (number1.Real - number2.Real); Imaginary = (number1.Imaginary - number2.Imaginary) }
+        complexNumber
+
+    let (|/|) (number1: complex) (number2: complex) = 
+        let divisor = number2.Real * number2.Real + number2.Imaginary * number2.Imaginary
+        let realPart = (number1.Real * number2.Real + number1.Imaginary * number2.Imaginary) / divisor
+        let imaginaryPart = (number1.Imaginary * number2.Real - number1.Real * number2.Imaginary) / divisor
+        let complexNumber = { Real = realPart; Imaginary = imaginaryPart }
+        complexNumber
 
     let explode1 (s:string) =
         if s.Length > 1 then
