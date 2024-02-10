@@ -71,10 +71,11 @@
         List.fold f "" cs
         
     let toUpper (input: string) : string =
-        input. 
+        let y = input.ToUpper() // Converts input to uppercase
+        y                       // Returns the uppercase string
 
     let ack _ = failwith "not implemented"
-
+        
 
 
     let downto3 _ = failwith "not implemented"
