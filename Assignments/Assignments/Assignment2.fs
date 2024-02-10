@@ -62,13 +62,16 @@
         | "" -> []
         | s -> s[0] :: explode2 s[1..]
 
-    let implode (cs: list<char>) : string =
-        List.foldBack (fun char acc -> string char + acc) cs ""
+    let implode (cs: list<char>) : string =            
+        let f = fun char acc -> string char + acc    // defines function f that takes two arguments, char and acc. The function then converts char to a string and concatenates with acc
+        List.foldBack f cs ""                        // Call function f on all values in cs from back with where char is the cs list and acc is the empty string
         
+    let implodeRev (cs: list<char>) : string =       // Does the same as above, just from head to tail. Because of this, the order of arguments is reversed too.
+        let f = fun acc char -> string char + acc
+        List.fold f "" cs
         
-    let implodeRev (cs: list<char>) : string = failwith "todo"
-
-    let toUpper _ = failwith "not implemented"
+    let toUpper (input: string) : string =
+        input. 
 
     let ack _ = failwith "not implemented"
 
