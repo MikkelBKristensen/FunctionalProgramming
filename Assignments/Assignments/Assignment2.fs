@@ -26,7 +26,7 @@
         | _ -> []
         
 
-    type complex = { Real : float; Imaginary : float } // Fill in your type here
+    type complex = { Real : float; Imaginary : float } 
     let mkComplex float1 float2 = 
         let number = { Real = float1; Imaginary = float2 }
         number
@@ -76,11 +76,17 @@
 
     let rec ack (m, n) = 
         match m with
-        | 0 -> n + 1
+        | 0 when m=0 -> n + 1
         | m when m > 0 && n = 0 -> ack (m-1, 1)
         | m when m > 0 && n > 0 -> ack (m-1, ack (m, n-1))
         
+    let time f =
+      let start = System.DateTime.Now
+      let res = f ()
+      let finish = System.DateTime.Now
+      (res, finish - start)
 
+    time (fun () -> ack (3, 11))
 
     let downto3 _ = failwith "not implemented"
 
