@@ -74,7 +74,11 @@
         let y = input.ToUpper() // Converts input to uppercase
         y                       // Returns the uppercase string
 
-    let ack _ = failwith "not implemented"
+    let rec ack (m, n) = 
+        match m with
+        | 0 -> n + 1
+        | m when m > 0 && n = 0 -> ack (m-1, 1)
+        | m when m > 0 && n > 0 -> ack (m-1, ack (m, n-1))
         
 
 
