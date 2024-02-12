@@ -76,9 +76,9 @@
 
     let rec ack (m, n) = 
         match m with
-        | 0 when m=0 -> n + 1
-        | m when m > 0 && n = 0 -> ack (m-1, 1)
-        | m when m > 0 && n > 0 -> ack (m-1, ack (m, n-1))
+        | 0 -> n + 1
+        | _ when m > 0 && n = 0 -> ack (m-1, 1)
+        | _ when m > 0 && n > 0 -> ack (m-1, ack (m, n-1))
         
     let time f =
       let start = System.DateTime.Now
@@ -86,7 +86,7 @@
       let finish = System.DateTime.Now
       (res, finish - start)
 
-    time (fun () -> ack (3, 11))
+    //time (fun () -> ack (3, 11))
 
     let downto3 _ = failwith "not implemented"
 
