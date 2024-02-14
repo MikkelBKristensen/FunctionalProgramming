@@ -1,4 +1,4 @@
-﻿module Assignment3
+module Assignment3
 
     open Types
         

@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net7.0": {
-      "FSharp.Core/7.0.401": {
+      "FSharp.Core/7.0.0": {
         "type": "package",
         "compile": {
           "lib/netstandard2.1/FSharp.Core.dll": {
@@ -59,15 +59,14 @@
     }
   },
   "libraries": {
-    "FSharp.Core/7.0.401": {
-      "sha512": "ZL16YHLJnkosMooVXjvJH0vGf7O4RSNtCpA/qw6OAHYxPCYSZRc5pKFTpDeDLdSWpOJDaZlveKcn42F0UDo77A==",
+    "FSharp.Core/7.0.0": {
+      "sha512": "buxzIcTn04nFWLxNpqsD7GH9NbU+gvN1KSAK31TK5kMHaoUU4E6mp6LrnIvl4sBkAodmsYS7sVEdp5tmHulXLw==",
       "type": "package",
-      "path": "fsharp.core/7.0.401",
+      "path": "fsharp.core/7.0.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "Icon.png",
-        "fsharp.core.7.0.401.nupkg.sha512",
+        "fsharp.core.7.0.0.nupkg.sha512",
         "fsharp.core.nuspec",
         "lib/netstandard2.0/FSharp.Core.dll",
         "lib/netstandard2.0/FSharp.Core.xml",
@@ -104,31 +103,29 @@
   },
   "projectFileDependencyGroups": {
     "net7.0": [
-      "FSharp.Core >= 7.0.401"
+      "FSharp.Core >= 7.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mikke\\.nuget\\packages\\": {}
+    "/home/mbek/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignments\\Assignments\\Assignments.fsproj",
+      "projectUniqueName": "/home/mbek/GitHub/FunctionalProgramming/Assignments/Assignments/Assignments.fsproj",
       "projectName": "Assignments",
-      "projectPath": "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignments\\Assignments\\Assignments.fsproj",
-      "packagesPath": "C:\\Users\\mikke\\.nuget\\packages\\",
-      "outputPath": "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignments\\Assignments\\obj\\",
+      "projectPath": "/home/mbek/GitHub/FunctionalProgramming/Assignments/Assignments/Assignments.fsproj",
+      "packagesPath": "/home/mbek/.nuget/packages/",
+      "outputPath": "/home/mbek/GitHub/FunctionalProgramming/Assignments/Assignments/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\mikke\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/home/mbek/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\sdk\\7.0.403\\FSharp\\library-packs": {},
+        "/usr/lib/dotnet/sdk/7.0.115/FSharp/library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -145,7 +142,7 @@
           "FSharp.Core": {
             "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
             "target": "Package",
-            "version": "[7.0.401, )",
+            "version": "[7.0.0, )",
             "generatePathProperty": true
           }
         },
@@ -165,7 +162,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.115/RuntimeIdentifierGraph.json"
       }
     }
   }

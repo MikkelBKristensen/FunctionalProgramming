@@ -8,6 +8,8 @@
     <ItemGroup>
       <Compile Include="Assignment1.fs" />
       <Compile Include="Assignment2.fs" />
+      <Compile Include="Assignment3.fs" />
+      <Compile Include="Types.fs" />
     </ItemGroup>
 
 </Project>
