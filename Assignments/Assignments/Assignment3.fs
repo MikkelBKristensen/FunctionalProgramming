@@ -2,9 +2,20 @@ module Assignment3
 
     open Types
         
-    let arithEvalSimple _ = failwith "not implemented"
+    let rec arithEvalSimple (a: aExp) =
+       match a with
+       | N x -> x
+       | Add (x, y) -> arithEvalSimple x + arithEvalSimple y
+       | Sub (x, y) -> arithEvalSimple x - arithEvalSimple y
+       | Mul (x, y) -> arithEvalSimple x * arithEvalSimple y
     
-    let arithEvalState _ = failwith "not implemented"
+    let rec arithEvalState (a: aExp) (s: Map<string, int>) =
+       match a with
+       | N x -> x
+       | V x -> if s.ContainsKey(x) then s.Item(x) else 0
+       | Add (x, y) -> arithEvalState x s + arithEvalState y s
+       | Sub (x, y) -> arithEvalState x s - arithEvalState y s
+       | Mul (x, y) -> arithEvalState x s * arithEvalState y s
               
               
     let hello = [] // Insert your version of hello here from the last assignment
