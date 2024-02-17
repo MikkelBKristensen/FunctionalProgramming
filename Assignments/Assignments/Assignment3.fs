@@ -17,7 +17,7 @@ module Assignment3
        | Sub (x, y) -> arithEvalState x s - arithEvalState y s
        | Mul (x, y) -> arithEvalState x s * arithEvalState y s
               
-              
+    type word = (char * int) list    
     let hello = [] // Insert your version of hello here from the last assignment
 
     let arithEval _ = failwith "not implemented"

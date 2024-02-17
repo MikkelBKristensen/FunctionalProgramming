@@ -46,11 +46,13 @@ module Assignment1
     let minutes (x1:int, y1:int) =
         timediff(0, 0) (x1, y1) 
 
+    let curry f x y = f (x, y)
 
-    let curry _ = failwith "not implemented"
-    let uncurry _ = failwith "not implemented"
+    let uncurry f (x, y) = f x y
 
-    let empty _ = failwith "not implemented"
+    let empty (letter, pointValue) = fun pos -> (letter, pointValue)
+
+	type word = int -> (char * int)
 
     let add _ = failwith "not implemented"
 

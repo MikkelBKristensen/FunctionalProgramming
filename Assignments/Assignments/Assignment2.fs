@@ -84,7 +84,7 @@
       let start = System.DateTime.Now
       let res = f ()
       let finish = System.DateTime.Now
-      (res, finish - start)
+      (res, finish - start) 
 
     //time (fun () -> ack (3, 11))
 
