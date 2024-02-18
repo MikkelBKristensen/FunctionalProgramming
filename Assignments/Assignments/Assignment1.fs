@@ -51,10 +51,12 @@ module Assignment1
     let uncurry f (x, y) = f x y
 
     let empty (letter, pointValue) = fun pos -> (letter, pointValue)
+    let theLetterA : int -> char * int = empty ('A', 1)
 
-	type word = int -> (char * int)
+    type word = int -> (char * int)
 
-    let add _ = failwith "not implemented"
+    let add newPos cv word = fun pos -> if pos = newPos then cv else word pos
+    let theLettersAB = add 0 ('B', 3) theLetterA
 
     let singleLetterScore _ = failwith "not implemented"
     let doubleLetterScore _ = failwith "not implemented"

@@ -18,7 +18,7 @@ module Assignment3
        | Mul (x, y) -> arithEvalState x s * arithEvalState y s
               
     type word = (char * int) list    
-    let hello = [] // Insert your version of hello here from the last assignment
+    let hello = ('H', 4)::('E', 1)::('L', 1)::('L', 1)::('O', 1)::[] 
 
     let arithEval _ = failwith "not implemented"
 

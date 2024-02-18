@@ -95,8 +95,7 @@
 
     type word = (char * int) list
 
-
-    let hello = [] // Fill in your answer here
+    let hello = ('H', 4)::('E', 1)::('L', 1)::('L', 1)::('O', 1)::[] 
 
     type squareFun = (char * int) list -> int -> int -> int
 
