@@ -25,9 +25,9 @@ module Assignment3
       | V x -> if s.ContainsKey(x) then s.Item(x) else 0
       | WL -> w.Length
       | PV x -> snd w.[arithEval x w s]
-      | Add (x, y) -> arithEvalState x s + arithEvalState y s
-      | Sub (x, y) -> arithEvalState x s - arithEvalState y s
-      | Mul (x, y) -> arithEvalState x s * arithEvalState y s
+      | Add (x, y) -> arithEval x w s + arithEval y w s
+      | Sub (x, y) -> arithEval x w s - arithEval y w s
+      | Mul (x, y) -> arithEval x w s * arithEval y w s
       | N x -> x
       
 
