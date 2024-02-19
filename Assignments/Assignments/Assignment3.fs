@@ -20,7 +20,16 @@ module Assignment3
     type word = (char * int) list    
     let hello = ('H', 4)::('E', 1)::('L', 1)::('L', 1)::('O', 1)::[] 
 
-    let arithEval _ = failwith "not implemented"
+    let rec arithEval (a: aExp) (w: word) (s: Map<string, int>) =
+      match a with
+      | V x -> if s.ContainsKey(x) then s.Item(x) else 0
+      | WL -> w.Length
+      | PV x -> snd w.[arithEval x w s]
+      | Add (x, y) -> arithEvalState x s + arithEvalState y s
+      | Sub (x, y) -> arithEvalState x s - arithEvalState y s
+      | Mul (x, y) -> arithEvalState x s * arithEvalState y s
+      | N x -> x
+      
 
     type cExp =
        | C  of char      (* Character value *)
