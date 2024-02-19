@@ -1,26 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "/home/mbek/GitHub/FunctionalProgramming/Assignments/Assignments/Assignments.fsproj": {}
+    "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignments\\Assignments\\Assignments.fsproj": {}
   },
   "projects": {
-    "/home/mbek/GitHub/FunctionalProgramming/Assignments/Assignments/Assignments.fsproj": {
+    "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignments\\Assignments\\Assignments.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/mbek/GitHub/FunctionalProgramming/Assignments/Assignments/Assignments.fsproj",
+        "projectUniqueName": "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignments\\Assignments\\Assignments.fsproj",
         "projectName": "Assignments",
-        "projectPath": "/home/mbek/GitHub/FunctionalProgramming/Assignments/Assignments/Assignments.fsproj",
-        "packagesPath": "/home/mbek/.nuget/packages/",
-        "outputPath": "/home/mbek/GitHub/FunctionalProgramming/Assignments/Assignments/obj/",
+        "projectPath": "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignments\\Assignments\\Assignments.fsproj",
+        "packagesPath": "C:\\Users\\mikke\\.nuget\\packages\\",
+        "outputPath": "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignments\\Assignments\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/mbek/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\mikke\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "/usr/lib/dotnet/sdk/7.0.115/FSharp/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\sdk\\7.0.403\\FSharp\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -37,7 +39,7 @@
             "FSharp.Core": {
               "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
               "target": "Package",
-              "version": "[7.0.0, )",
+              "version": "[7.0.401, )",
               "generatePathProperty": true
             }
           },
@@ -57,7 +59,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.115/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.403\\RuntimeIdentifierGraph.json"
         }
       }
     }

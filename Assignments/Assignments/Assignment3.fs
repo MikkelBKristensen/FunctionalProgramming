@@ -4,32 +4,31 @@ module Assignment3
         
     let rec arithEvalSimple (a: aExp) =
        match a with
-       | N x -> x
-       | Add (x, y) -> arithEvalSimple x + arithEvalSimple y
-       | Sub (x, y) -> arithEvalSimple x - arithEvalSimple y
-       | Mul (x, y) -> arithEvalSimple x * arithEvalSimple y
+          | N x -> x
+          | Add (x, y) -> arithEvalSimple x + arithEvalSimple y
+          | Sub (x, y) -> arithEvalSimple x - arithEvalSimple y
+          | Mul (x, y) -> arithEvalSimple x * arithEvalSimple y
     
     let rec arithEvalState (a: aExp) (s: Map<string, int>) =
        match a with
-       | N x -> x
-       | V x -> if s.ContainsKey(x) then s.Item(x) else 0
-       | Add (x, y) -> arithEvalState x s + arithEvalState y s
-       | Sub (x, y) -> arithEvalState x s - arithEvalState y s
-       | Mul (x, y) -> arithEvalState x s * arithEvalState y s
+          | N x -> x
+          | V x -> if s.ContainsKey(x) then s.Item(x) else 0
+          | Add (x, y) -> arithEvalState x s + arithEvalState y s
+          | Sub (x, y) -> arithEvalState x s - arithEvalState y s
+          | Mul (x, y) -> arithEvalState x s * arithEvalState y s
               
     type word = (char * int) list    
     let hello = ('H', 4)::('E', 1)::('L', 1)::('L', 1)::('O', 1)::[] 
 
     let rec arithEval (a: aExp) (w: word) (s: Map<string, int>) =
       match a with
-      | V x -> if s.ContainsKey(x) then s.Item(x) else 0
-      | WL -> w.Length
-      | PV x -> snd w.[arithEval x w s]
-      | Add (x, y) -> arithEval x w s + arithEval y w s
-      | Sub (x, y) -> arithEval x w s - arithEval y w s
-      | Mul (x, y) -> arithEval x w s * arithEval y w s
-      | N x -> x
-      
+         | WL -> w.Length
+         | PV x -> snd w.[arithEval x w s]
+         | V x -> if s.ContainsKey(x) then s.Item(x) else 0
+         | Add (x, y) -> (arithEval x w s) + (arithEval y w s)
+         | Sub (x, y) -> (arithEval x w s) - (arithEval y w s)
+         | Mul (x, y) -> (arithEval x w s) * (arithEval y w s)
+         | N x -> x
 
     type cExp =
        | C  of char      (* Character value *)
@@ -37,7 +36,12 @@ module Assignment3
        | ToLower of cExp (* Converts upper case to lower case character, non characters unchanged *)
        | CV of aExp      (* Character lookup at word index *)
 
-    let charEval _ = failwith "not implemented"
+    let rec charEval (c: cExp) (w: word) (s: Map<string, int>) =
+       match c with
+         | C x -> x
+         | ToUpper x -> System.Char.ToUpper (charEval x w s)
+         | ToLower x -> System.Char.ToLower (charEval x w s)
+         | CV x -> fst w.[arithEval x w s]
 
     type bExp =             
        | TT                   (* true *)
@@ -64,7 +68,17 @@ module Assignment3
     let (.>=.) a b = ~~(a .<. b)                (* numeric greater than or equal to *)
     let (.>.) a b = ~~(a .=. b) .&&. (a .>=. b) (* numeric greater than *)
 
-    let boolEval _ = failwith "not implemented"
+    let rec boolEval (b: bExp) (w: word) (s: Map<string, int>) =
+       match b with
+         | TT -> true
+         | FF -> false
+         | AEq (x, y) -> arithEval x w s = arithEval y w s
+         | ALt (x, y) -> arithEval x w s < arithEval y w s
+         | Not x -> not (boolEval x w s)
+         | Conj (x, y) -> boolEval x w s && boolEval y w s
+         | IsDigit x -> System.Char.IsDigit (charEval x w s)
+         | IsLetter x -> System.Char.IsLetter (charEval x w s)
+         | IsVowel x -> "aeiouyæøå".Contains(System.Char.ToLower(charEval x w s)) 
         
     let isConsonant _ = failwith "not implemented"
 
@@ -76,8 +90,8 @@ module Assignment3
        | While of bExp * stmnt       (* while statement *)
 
     let evalStmnt _ = failwith "not implemented"
-
-    let stmntToSquareFun _ = failwith "not implemented"
+   
+    let stmntToSquareFun (_: stmnt) : squareFun = fun _ _ _ -> 0
     
     let singleLetterScore : squareFun = stmntToSquareFun (Ass ("_result_", arithSingleLetterScore))
     let doubleLetterScore : squareFun = stmntToSquareFun (Ass ("_result_", arithDoubleLetterScore))
