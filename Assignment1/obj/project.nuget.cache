@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "jgeF8ebZ62VlmF1qL4/2XZ5QY0nvOjpd5CvDJEXUdFHBLLLHvbTe5HFs/sMT/+xVFHZbPiO+zMJr8T9RWtf8SQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\mikke\\Documents\\GitHub\\FunctionalProgramming\\Assignment1\\Assignment1.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mikke\\.nuget\\packages\\fsharp.core\\8.0.101\\fsharp.core.8.0.101.nupkg.sha512"
+  ],
+  "logs": []
+}
