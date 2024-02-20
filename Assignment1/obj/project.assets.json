@@ -142,6 +142,9 @@
           "targetAlias": "net8.0",
           "projectReferences": {}
         }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "default"
       }
     },
     "frameworks": {
