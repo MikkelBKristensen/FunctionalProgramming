@@ -1,6 +1,6 @@
 module MultiSet
 
-    type MultiSet = unit // replace with your type
+    type MultiSet<'a when 'a : comparison> private (elements: Map<'a, uint>) = 
 
 
     let empty _ = ()
