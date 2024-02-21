@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <Compile Include="MultiSet.fs" />
-    <Compile Include="Multiset.fsi.fs" />
+    <Compile Include="Multiset.fsi" />
   </ItemGroup>
 
 </Project>
