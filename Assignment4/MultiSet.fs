@@ -1,17 +1,20 @@
 module MultiSet
 
-    type MultiSet<'a when 'a : comparison> private (elements: Map<'a, uint>) = 
+open System
+
+    type MultiSet<'a when 'a : comparison> = Map<'a, uint> 
 
 
-    let empty _ = ()
+    let empty = MultiSet<'a>
 
-    let isEmpty _ = true
+    let isEmpty (s: MultiSet<'a>) = s.IsEmpty
 
-    let size _ = 0u
+    let size (s: MultiSet<'a>) = 
+        Map.fold (fun acc _ value -> acc + value) 0u
     
-    let contains _ _ = true
+    let contains (a: 'a) (s: MultiSet<'a>) = s.ContainsKey a
 
-    let numItems _ _ = 0u
+    let numItems (a: 'a) (s: MultiSet<'a>) = s.Item a
 
     let add _ _ _ = ()
 
