@@ -40,7 +40,6 @@ open System
                 else s.Add(a, elementCount - uint 1)
             | None -> s
 
-
     let fold _ x _ = x 
     let foldBack _ _ x = x
     
