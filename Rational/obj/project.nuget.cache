@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "6FvbkT+NLxjAKpsT1kOFvJuEtxBV+mnZ2nYAULoB2s8oaRmKKEDV1gT+1y6k9Z6Jelol6D0s1QKbYV7/CM1zcQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\mikke\\Documents\\GitHub\\FunctionalProgramming\\Rational\\Rational.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\mikke\\.nuget\\packages\\fsharp.core\\8.0.200\\fsharp.core.8.0.200.nupkg.sha512"
+  ],
+  "logs": []
+}
