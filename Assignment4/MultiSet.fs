@@ -40,8 +40,9 @@ open System
                 else s.Add(a, elementCount - uint 1)
             | None -> s
 
-    let fold _ x _ = x 
-    let foldBack _ _ x = x
+    let fold (f: 'a -> 'b -> uint32 -> 'a) acc (s: MultiSet<'b>) : 'a =
+        
+    let foldBack (f: 'a -> uint32 -> 'b -> 'b) (s: MultiSet<'a>) (acc: 'b) : 'b = 
     
     let ofList _ = ()
     let toList _ = []
