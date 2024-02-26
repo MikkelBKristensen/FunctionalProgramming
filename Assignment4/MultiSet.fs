@@ -1,61 +1,65 @@
 module MultiSet
 
-    type MultiSet<'a when 'a : comparison> = Map<'a, uint> 
+type MultiSet<'a when 'a : comparison> = MultiSet of Map<'a, uint>
 
+let empty = MultiSet(Map.empty)
 
-    let empty = MultiSet<'a>
+let isEmpty (MultiSet(s)) = Map.isEmpty s
 
-    let isEmpty (s: MultiSet<'a>) = s.IsEmpty
+let size (MultiSet(s)) = uint (Map.count s) 
 
-    let size (s: MultiSet<'a>) = 
-        Map.fold (fun acc _ value -> acc + value) 0u s
-    
-    let contains (a: 'a) (s: MultiSet<'a>) = s.ContainsKey a
+let contains a (MultiSet(s)) = Map.containsKey a s
 
-    let numItems (a: 'a) (s: MultiSet<'a>) = s.Item a
+let numItems a (MultiSet(s)) = 
+    match Map.tryFind a s with
+    | Some count -> count
+    | None -> 0u
 
-    let add (a: 'a) (n: uint) (s: MultiSet<'a>) =
-        match Map.tryFind a s with
-            | Some elementCount -> s.Add(a, n + elementCount)
-            | None -> s.Add(a, n)
+let add a n (MultiSet(s)) =
+    match Map.tryFind a s with
+    | Some count -> MultiSet(Map.add a (count + n) s)
+    | None -> MultiSet(Map.add a n s)
 
-    let addSingle (a: 'a) (s: MultiSet<'a>) =
-        match Map.tryFind a s with
-            | Some elementCount -> s.Add(a, elementCount + uint 1)
-            | None -> s.Add(a, uint 1)
-    
-    let remove (a: 'a) (n: uint) (s: MultiSet<'a>) =
-        match Map.tryFind a s with
-            | Some elementCount ->
-                if n >= elementCount then s.Add(a, uint 0)
-                else s.Add(a, elementCount - n)
-            | None -> s
+let addSingle a (MultiSet(s)) =
+    add a 1u (MultiSet(s))
 
-    let removeSingle (a: 'a) (s: MultiSet<'a>) =
-        match Map.tryFind a s with
-            | Some elementCount ->
-                if uint 1 >= elementCount then s.Add(a, uint 0)
-                else s.Add(a, elementCount - uint 1)
-            | None -> s
+let remove a n (MultiSet(s)) =
+    match Map.tryFind a s with
+    | Some count ->
+        if n >= count then MultiSet(Map.remove a s)
+        else MultiSet(Map.add a (count - n) s)
+    | None -> MultiSet(s)
 
-    let fold (f: 'a -> 'b -> uint32 -> 'a) acc (s: MultiSet<'b>) : 'a = 
-        Map.fold (fun acc key value -> f acc key value) acc s
-        
-    let foldBack (f: 'a -> uint32 -> 'b -> 'b) (s: MultiSet<'a>) (acc: 'b) : 'b =
-        Map.foldBack (fun key value acc -> f key value acc) s acc
-    
-    let ofList (l: 'a List) = ()
-    let toList (s: MultiSet<'a>) = []
+let removeSingle a (MultiSet(s)) =
+    remove a 1u (MultiSet(s))
 
+let fold f acc (MultiSet(s)) = 
+    Map.fold f acc s
 
-    let map (a, b) (s: MultiSet<'a>) = ()
+let foldBack f (MultiSet(s)) acc =
+    Map.foldBack f s acc
 
+let ofList (l: 'a list) =
+    List.fold (fun acc item -> addSingle item acc) empty l
 
-    let union (a: MultiSet<'a>)  (b: MultiSet<'a>) = ()
-    let sum (a: MultiSet<'a>)  (b: MultiSet<'a>) = ()
-    
-    let subtract (a: MultiSet<'a>)  (b: MultiSet<'a>) = ()
-    
-    let intersection (a: MultiSet<'a>)  (b: MultiSet<'a>) = ()
-       
-    
+let toList (MultiSet(s)) =
+    Map.foldBack (fun key _ acc -> key :: acc) s []
+
+let map f (MultiSet(s)) =
+    fold (fun acc key value -> add (f key) value acc) empty (MultiSet(s))
+
+let union (MultiSet(s1)) (MultiSet(s2)) =
+    fold (fun acc key value -> add key value acc) (MultiSet(s1)) (MultiSet(s2))
+
+let sum (MultiSet(s1)) (MultiSet(s2)) =
+    fold (fun acc key value -> add key value acc) (MultiSet(s1)) (MultiSet(s2))
+
+let subtract (MultiSet(s1)) (MultiSet(s2)) =
+    fold (fun acc key value -> remove key value acc) (MultiSet(s1)) (MultiSet(s2))
+
+let intersection (MultiSet(s1)) (MultiSet(s2)) =
+    fold (fun acc key value ->
+        let count = numItems key (MultiSet(s2))
+        if count > 0u then add key (min value count) acc
+        else acc
+    ) empty (MultiSet(s1))
