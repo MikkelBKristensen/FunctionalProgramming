@@ -1,5 +1,4 @@
-﻿module Multiset_fsi
-    [<Sealed>]
+﻿module MultiSet
 
     type MultiSet<'a when 'a : comparison>
 

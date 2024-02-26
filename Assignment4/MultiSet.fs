@@ -1,7 +1,5 @@
 module MultiSet
 
-open System
-
     type MultiSet<'a when 'a : comparison> = Map<'a, uint> 
 
 
@@ -40,22 +38,24 @@ open System
                 else s.Add(a, elementCount - uint 1)
             | None -> s
 
-    let fold (f: 'a -> 'b -> uint32 -> 'a) acc (s: MultiSet<'b>) : 'a =
+    let fold (f: 'a -> 'b -> uint32 -> 'a) acc (s: MultiSet<'b>) : 'a = 
+        Map.fold (fun acc key value -> f acc key value) acc s
         
-    let foldBack (f: 'a -> uint32 -> 'b -> 'b) (s: MultiSet<'a>) (acc: 'b) : 'b = 
+    let foldBack (f: 'a -> uint32 -> 'b -> 'b) (s: MultiSet<'a>) (acc: 'b) : 'b =
+        Map.foldBack (fun key value acc -> f key value acc) s acc
     
-    let ofList _ = ()
-    let toList _ = []
+    let ofList (l: 'a List) = ()
+    let toList (s: MultiSet<'a>) = []
 
 
-    let map _ _ = ()
+    let map (a, b) (s: MultiSet<'a>) = ()
 
 
-    let union _ _ = ()
-    let sum _ _ = ()
+    let union (a: MultiSet<'a>)  (b: MultiSet<'a>) = ()
+    let sum (a: MultiSet<'a>)  (b: MultiSet<'a>) = ()
     
-    let subtract _ _ = ()
+    let subtract (a: MultiSet<'a>)  (b: MultiSet<'a>) = ()
     
-    let intersection _ _ = ()
+    let intersection (a: MultiSet<'a>)  (b: MultiSet<'a>) = ()
        
     
