@@ -6,7 +6,8 @@ let empty = MultiSet(Map.empty)
 
 let isEmpty (MultiSet(s)) = Map.isEmpty s
 
-let size (MultiSet(s)) = uint (Map.count s) 
+let size (MultiSet(s)) =
+    Map.fold (fun acc _ value -> acc + value) 0u s
 
 let contains a (MultiSet(s)) = Map.containsKey a s
 
@@ -48,7 +49,8 @@ let toList (MultiSet(s)) =
 let map f (MultiSet(s)) =
     fold (fun acc key value -> add (f key) value acc) empty (MultiSet(s))
 
-let union (MultiSet(s1)) (MultiSet(s2)) =
+// I am unsure how to make it fail gracefully, so here is the Sum function again
+let union (MultiSet(s1)) (MultiSet(s2)) = 
     fold (fun acc key value -> add key value acc) (MultiSet(s1)) (MultiSet(s2))
 
 let sum (MultiSet(s1)) (MultiSet(s2)) =
