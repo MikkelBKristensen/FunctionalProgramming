@@ -2,19 +2,22 @@ module Assignment5
 
 (* Exercise 5.1 *)
 
-let rec sumIterative a b acc =
-    if b = 0 then
-        acc + a
-    else
-        sumIterative a (b - 1) (a + acc)
-let sum (a: int) (b: int) : int =
-    sumIterative a b b
-    
-        
+let sum (m: int) (n: int) : int =
+    let rec sumIterative (m: int) (n: int) (acc: int) =
+        if n = 0 then
+            acc + m
+        else
+            sumIterative m (n - 1) (m + n + acc)
+    sumIterative m n 0
 
 (* Exercise 5.2 *)
 
-let length _ = failwith "not implemented"
+let length (lst: 'a list) =
+    let rec listLength (lst: 'a list) (acc: int) =
+        match lst with
+        | [] -> acc
+        | _ :: xs -> listLength xs (acc + 1)
+    listLength lst 0
 
 (* Exercise 5.3 *)
 
