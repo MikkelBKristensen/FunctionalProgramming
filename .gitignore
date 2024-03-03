@@ -8,3 +8,6 @@ Assignments/Assignments/obj/rider.project.model.nuget.info
 .obj
 .bin
 .idea
+.vs
+.cache
+.json
