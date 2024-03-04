@@ -46,10 +46,16 @@ let factC x =
         | _ -> factCont (x-1) acc (fun acc' -> cont (x * acc'))
     factCont x 1 (fun x -> x)
 
+// timer function that takes a function and an argument and returns the time it took to execute the function in seconds
+let timer f x =
+    let start = System.DateTime.Now
+    let res = f x
+    let stop = System.DateTime.Now
+    (stop - start).TotalSeconds
 
 (* TODO: *)
 (* Compare the running time between factA and factC. Which solution is faster and why? 
-   <Your answer goes here>
+   The running time of factA and factC is the same, but with continuation in FactC, one can avoid stack overflow.
 *)
 
 (* Exercise 5.5 *)
