@@ -21,14 +21,30 @@ let length (lst: 'a list) =
 
 (* Exercise 5.3 *)
 
-let foldBack _ = failwith "not implemented"
+// create a foldBack function that uses continuation passing style
+let foldBack (f: 'a -> 'b -> 'b) (lst: 'a list) (acc: 'b) = 
+    let rec foldBackCont lst acc cont =
+        match lst with
+        | [] -> cont acc
+        | x::xs -> foldBackCont xs acc (fun acc' -> cont (f x acc'))
+    foldBackCont lst acc (fun x -> x)
 
 
 (* Exercise 5.4 *)
 
-let factA _ = failwith "not implemented"
-
-let factC _ = failwith "not implemented"
+let factA x =
+    let rec aux acc =
+        function
+        | 0 -> acc
+        | x -> aux (x * acc) (x - 1)
+    aux 1 x
+    
+let factC x =
+    let rec factCont x acc cont =
+        match x with
+        | 0 -> cont acc
+        | _ -> factCont (x-1) acc (fun acc' -> cont (x * acc'))
+    factCont x 1 (fun x -> x)
 
 
 (* TODO: *)
