@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignment2\\Assignment2.fsproj": {}
+    "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignment6\\Assignment6.fsproj": {}
   },
   "projects": {
-    "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignment2\\Assignment2.fsproj": {
+    "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignment6\\Assignment6.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignment2\\Assignment2.fsproj",
-        "projectName": "Assignment2",
-        "projectPath": "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignment2\\Assignment2.fsproj",
+        "projectUniqueName": "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignment6\\Assignment6.fsproj",
+        "projectName": "Assignment6",
+        "projectPath": "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignment6\\Assignment6.fsproj",
         "packagesPath": "C:\\Users\\mikke\\.nuget\\packages\\",
-        "outputPath": "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignment2\\obj\\",
+        "outputPath": "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignment6\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mikke\\AppData\\Roaming\\NuGet\\NuGet.Config",
