@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignment4\\Assignment4.fsproj": {}
+    "C:\\Users\\mikke\\Documents\\GitHub\\FunctionalProgramming\\Assignment4\\Assignment4.fsproj": {}
   },
   "projects": {
-    "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignment4\\Assignment4.fsproj": {
+    "C:\\Users\\mikke\\Documents\\GitHub\\FunctionalProgramming\\Assignment4\\Assignment4.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignment4\\Assignment4.fsproj",
+        "projectUniqueName": "C:\\Users\\mikke\\Documents\\GitHub\\FunctionalProgramming\\Assignment4\\Assignment4.fsproj",
         "projectName": "Assignment4",
-        "projectPath": "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignment4\\Assignment4.fsproj",
+        "projectPath": "C:\\Users\\mikke\\Documents\\GitHub\\FunctionalProgramming\\Assignment4\\Assignment4.fsproj",
         "packagesPath": "C:\\Users\\mikke\\.nuget\\packages\\",
-        "outputPath": "C:\\ITU\\Semester 4\\Functional Programming\\FunctionalProgramming\\Assignment4\\obj\\",
+        "outputPath": "C:\\Users\\mikke\\Documents\\GitHub\\FunctionalProgramming\\Assignment4\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
           "C:\\Users\\mikke\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,7 +26,8 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\sdk\\8.0.202\\FSharp\\library-packs": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "C:\\Program Files\\dotnet\\sdk\\8.0.200\\FSharp\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -59,7 +64,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

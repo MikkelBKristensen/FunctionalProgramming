@@ -21,7 +21,6 @@ let length (lst: 'a list) =
 
 (* Exercise 5.3 *)
 
-// create a foldBack function that uses continuation passing style
 let foldBack (f: 'a -> 'b -> 'b) (lst: 'a list) (acc: 'b) = 
     let rec foldBackCont lst acc cont =
         match lst with
