@@ -46,7 +46,10 @@
         S (fun s -> Success ((), {s with vars = Map.empty :: s.vars}))
 
     let pop : SM<unit> =
-        S (fun s -> Success ((), s))
+        S (fun s ->
+            match s.vars with
+            | [] -> Failure (VarNotFound "Cannot pop the last state")
+            | _ :: rest -> Success ((), {s with vars = rest}))
 
     let wordLength : SM<int> = S (fun s -> Success (failwith "Not implemented", s))      
 
