@@ -51,11 +51,21 @@
             | [] -> Failure (VarNotFound "Cannot pop the last state")
             | _ :: rest -> Success ((), {s with vars = rest}))
 
-    let wordLength : SM<int> = S (fun s -> Success (failwith "Not implemented", s))      
+    let wordLength : SM<int> = S (fun s -> Success (s.word.Length, s))      
 
-    let characterValue (pos : int) : SM<char> = failwith "Not implemented"      
+    let characterValue (pos : int) : SM<char> =
+        S (fun s -> 
+            if pos < 0 || pos >= s.word.Length then
+                Failure (IndexOutOfBounds pos)
+            else
+                Success (fst s.word.[pos], s))
 
-    let pointValue (pos : int) : SM<int> = failwith "Not implemented"      
+    let pointValue (pos : int) : SM<int> =
+        S (fun s -> 
+            if pos < 0 || pos >= s.word.Length then
+                Failure (IndexOutOfBounds pos)
+            else
+                Success (snd s.word.[pos], s))
 
     let lookup (x : string) : SM<int> = 
         let rec aux =
