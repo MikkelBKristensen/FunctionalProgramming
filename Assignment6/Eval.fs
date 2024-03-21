@@ -72,7 +72,10 @@
     let (.>=.) a b = ~~(a .<. b)                (* numeric greater than or equal to *)
     let (.>.) a b = ~~(a .=. b) .&&. (a .>=. b) (* numeric greater than *)    
 
-    let arithEval (a : aExp) : SM<int> = failwith "Not implemented"      
+    let arithEval (a : aExp) : SM<int> =
+        match a with
+        | N n -> ret n
+        
 
     let charEval (c : cExp) : SM<char> = failwith "Not implemented"      
 
