@@ -75,6 +75,8 @@
     let arithEval (a : aExp) : SM<int> =
         match a with
         | N n -> ret n
+        | V v -> lookup v
+        | WL -> 
         
 
     let charEval (c : cExp) : SM<char> = failwith "Not implemented"      
