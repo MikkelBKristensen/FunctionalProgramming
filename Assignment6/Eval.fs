@@ -83,18 +83,29 @@
         | Mul (a1, a2) -> arithEval (a1 .*. a2)
         | Div (a1, a2) -> arithEval (a1 ./. a2)
         | Mod (a1, a2) -> arithEval (a1 .%. a2)
-        | CharToInt c -> failwith "Not implemented"
-        
-
-    let rec charEval (c : cExp) : SM<char> =
+        | CharToInt c -> charEval c >>= fun x -> ret (int x)
+    and charEval (c : cExp) : SM<char> =
         match c with
         | C c -> ret c                              (* Character value *)
         | CV cv -> arithEval cv >>= characterValue  (* Character lookup at word index *)
-        | ToUpper c -> charEval c >>= ret (System.Char.ToUpper c)
-        | ToLower c -> charEval c >>= ret (System.Char.ToLower c)
-        | IntToChar of aExp
+        | ToUpper c -> charEval c >>= fun x -> ret (System.Char.ToUpper x)
+        | ToLower c -> charEval c >>= fun x -> ret (System.Char.ToLower x)
+        | IntToChar c -> arithEval c >>= fun x -> ret (char x)
+           
+    and  boolEval (b : bExp) : SM<bool> =
+        match b with
+        | TT -> ret true                   (* true *)
+        | FF -> ret false                  (* false *)
 
-    let boolEval (b : bExp) : SM<bool> = failwith "Not implemented"
+        | AEq (b1, b2) -> boolEval (b1 .=. b2)    (* numeric equality *)
+        | ALt (b1, b2) -> boolEval (b1 .<. b2)    (* numeric less than *)
+
+        | Not b -> boolEval b >>= fun x -> ret (not x)                (* boolean not *)
+        | Conj (b1, b2) -> boolEval (b1 .&&. b2)                      (* boolean conjunction *)
+
+        | IsVowel c -> charEval c >>= fun x -> ret("aeiouyæøå".Contains(System.Char.ToLower(x)))    (* check for vowel *)
+        | IsLetter c -> charEval c >>= fun x -> ret(System.Char.IsLetter x)                         (* check for letter *)
+        | IsDigit c -> charEval c >>= fun x -> ret(System.Char.IsDigit x)                           (* check for digit *)
 
 
     type stmnt =                  (* statements *)
