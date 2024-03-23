@@ -72,14 +72,27 @@
     let (.>=.) a b = ~~(a .<. b)                (* numeric greater than or equal to *)
     let (.>.) a b = ~~(a .=. b) .&&. (a .>=. b) (* numeric greater than *)    
 
-    let arithEval (a : aExp) : SM<int> =
+    let rec arithEval (a : aExp) : SM<int> =
         match a with
-        | N n -> ret n
+        | N n -> ret n 
         | V v -> lookup v
-        | WL -> 
+        | WL -> wordLength
+        | PV pv -> arithEval pv >>= pointValue
+        | Add (a1, a2) -> add (arithEval a1) (arithEval a2)
+        | Sub (a1, a2) -> arithEval (a1 .-. a2)
+        | Mul (a1, a2) -> arithEval (a1 .*. a2)
+        | Div (a1, a2) -> arithEval (a1 ./. a2)
+        | Mod (a1, a2) -> arithEval (a1 .%. a2)
+        | CharToInt c -> failwith "Not implemented"
         
 
-    let charEval (c : cExp) : SM<char> = failwith "Not implemented"      
+    let rec charEval (c : cExp) : SM<char> =
+        match c with
+        | C c -> ret c                              (* Character value *)
+        | CV cv -> arithEval cv >>= characterValue  (* Character lookup at word index *)
+        | ToUpper c -> charEval c >>= ret (System.Char.ToUpper c)
+        | ToLower c -> charEval c >>= ret (System.Char.ToLower c)
+        | IntToChar of aExp
 
     let boolEval (b : bExp) : SM<bool> = failwith "Not implemented"
 
