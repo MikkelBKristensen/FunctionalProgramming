@@ -5,7 +5,11 @@ htmldocs/
 .fake
 Assignments/Assignments/obj/rider.project.model.nuget.info
 
+
+
+*.obj
 .obj
+*.bin
 .bin
 .idea
 .vs
