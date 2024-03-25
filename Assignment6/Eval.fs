@@ -14,12 +14,46 @@
         b >>= fun y ->
         ret (x + y)
         
+    let sub (a : SM<int>) (b : SM<int>) : SM<int> =
+        a >>= fun x ->
+        b >>= fun y ->
+        ret (x - y)
         
+    let mul (a : SM<int>) (b : SM<int>) : SM<int> =
+        a >>= fun x ->
+        b >>= fun y ->
+        ret (x * y)
+     
     let div a b =
         a >>= fun x ->
         b >>= fun y ->
             if (y <> 0) then ret (x / y)
             else fail DivisionByZero
+    
+    let modulo a b =
+        a >>= fun x ->
+        b >>= fun y ->
+            if (y <> 0) then ret (x % y)
+            else fail DivisionByZero
+    
+    let aEquality (a : SM<int>) (b : SM<int>) : SM<bool> =
+        a >>= fun x ->
+        b >>= fun y ->
+        ret (x = y)
+        
+    let aLessThan (a : SM<int>) (b : SM<int>) : SM<bool> =
+        a >>= fun x ->
+        b >>= fun y ->
+        ret (x < y)
+    
+    let aConj (a : SM<bool>) (b : SM<bool>) : SM<bool> =
+        a >>= fun x ->
+        b >>= fun y ->
+        ret (x && y)
+        
+    let aNot (a : SM<bool>) : SM<bool> =
+        a >>= fun x ->
+        ret (not x)
 
     type aExp =
         | N of int
@@ -79,10 +113,10 @@
         | WL -> wordLength
         | PV pv -> arithEval pv >>= pointValue
         | Add (a1, a2) -> add (arithEval a1) (arithEval a2)
-        | Sub (a1, a2) -> arithEval (a1 .-. a2)
-        | Mul (a1, a2) -> arithEval (a1 .*. a2)
-        | Div (a1, a2) -> arithEval (a1 ./. a2)
-        | Mod (a1, a2) -> arithEval (a1 .%. a2)
+        | Sub (a1, a2) -> sub (arithEval a1) (arithEval a2)
+        | Mul (a1, a2) -> mul (arithEval a1) (arithEval a2)
+        | Div (a1, a2) -> div (arithEval a1) (arithEval a2)
+        | Mod (a1, a2) -> modulo (arithEval a1) (arithEval a2)
         | CharToInt c -> charEval c >>= fun x -> ret (int x)
     and charEval (c : cExp) : SM<char> =
         match c with
@@ -97,11 +131,11 @@
         | TT -> ret true                   (* true *)
         | FF -> ret false                  (* false *)
 
-        | AEq (b1, b2) -> boolEval (b1 .=. b2)    (* numeric equality *)
-        | ALt (b1, b2) -> boolEval (b1 .<. b2)    (* numeric less than *)
+        | AEq (b1, b2) -> aEquality (arithEval b1) (arithEval b2)    (* numeric equality *)
+        | ALt (b1, b2) -> aLessThan (arithEval b1) (arithEval b2)    (* numeric less than *)
 
         | Not b -> boolEval b >>= fun x -> ret (not x)                (* boolean not *)
-        | Conj (b1, b2) -> boolEval (b1 .&&. b2)                      (* boolean conjunction *)
+        | Conj (b1, b2) -> aConj (boolEval b1) (boolEval b2)                       (* boolean conjunction *)
 
         | IsVowel c -> charEval c >>= fun x -> ret("aeiouyæøå".Contains(System.Char.ToLower(x)))    (* check for vowel *)
         | IsLetter c -> charEval c >>= fun x -> ret(System.Char.IsLetter x)                         (* check for letter *)
