@@ -9,7 +9,9 @@ Assignments/Assignments/obj/rider.project.model.nuget.info
 
 *.obj
 .obj
+obj
 *.bin
+bin
 .bin
 .idea
 .vs
