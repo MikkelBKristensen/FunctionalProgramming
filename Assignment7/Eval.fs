@@ -4,12 +4,55 @@
 
     (* Code for testing *)
 
-    let hello = [(* INSERT YOUR DEFINITON OF HELLO HERE.*)] 
+    let hello = ('H', 4)::('E', 1)::('L', 1)::('L', 1)::('O', 1)::[]  
     let state = mkState [("x", 5); ("y", 42)] hello ["_pos_"; "_result_"]
     let emptyState = mkState [] [] []
     
-    let add a b = failwith "Not implemented"      
-    let div a b = failwith "Not implemented"      
+    let add (a : SM<int>) (b : SM<int>) : SM<int> =
+        a >>= fun x ->
+        b >>= fun y ->
+        ret (x + y)
+        
+    let sub (a : SM<int>) (b : SM<int>) : SM<int> =
+        a >>= fun x ->
+        b >>= fun y ->
+        ret (x - y)
+        
+    let mul (a : SM<int>) (b : SM<int>) : SM<int> =
+        a >>= fun x ->
+        b >>= fun y ->
+        ret (x * y)
+     
+    let div a b =
+        a >>= fun x ->
+        b >>= fun y ->
+            if (y <> 0) then ret (x / y)
+            else fail DivisionByZero
+    
+    let modulo a b =
+        a >>= fun x ->
+        b >>= fun y ->
+            if (y <> 0) then ret (x % y)
+            else fail DivisionByZero
+            
+    let aEquality (a : SM<int>) (b : SM<int>) : SM<bool> =
+        a >>= fun x ->
+        b >>= fun y ->
+        ret (x = y)
+        
+    let aLessThan (a : SM<int>) (b : SM<int>) : SM<bool> =
+        a >>= fun x ->
+        b >>= fun y ->
+        ret (x < y)
+    
+    let aConj (a : SM<bool>) (b : SM<bool>) : SM<bool> =
+        a >>= fun x ->
+        b >>= fun y ->
+        ret (x && y)
+        
+    let aNot (a : SM<bool>) : SM<bool> =
+        a >>= fun x ->
+        ret (not x)
 
     type aExp =
         | N of int
@@ -62,11 +105,40 @@
     let (.>=.) a b = ~~(a .<. b)                (* numeric greater than or equal to *)
     let (.>.) a b = ~~(a .=. b) .&&. (a .>=. b) (* numeric greater than *)    
 
-    let arithEval a : SM<int> = failwith "Not implemented"      
+    let rec arithEval (a : aExp) : SM<int> =
+        match a with
+        | N n -> ret n 
+        | V v -> lookup v
+        | WL -> wordLength
+        | PV pv -> arithEval pv >>= pointValue
+        | Add (a1, a2) -> add (arithEval a1) (arithEval a2)
+        | Sub (a1, a2) -> sub (arithEval a1) (arithEval a2)
+        | Mul (a1, a2) -> mul (arithEval a1) (arithEval a2)
+        | Div (a1, a2) -> div (arithEval a1) (arithEval a2)
+        | Mod (a1, a2) -> modulo (arithEval a1) (arithEval a2)
+        | CharToInt c -> charEval c >>= fun x -> ret (int x)
+    and charEval (c : cExp) : SM<char> =
+        match c with
+        | C c -> ret c                              (* Character value *)
+        | CV cv -> arithEval cv >>= characterValue  (* Character lookup at word index *)
+        | ToUpper c -> charEval c >>= fun x -> ret (System.Char.ToUpper x)
+        | ToLower c -> charEval c >>= fun x -> ret (System.Char.ToLower x)
+        | IntToChar c -> arithEval c >>= fun x -> ret (char x)
+           
+    and  boolEval (b : bExp) : SM<bool> =
+        match b with
+        | TT -> ret true                   (* true *)
+        | FF -> ret false                  (* false *)
 
-    let charEval c : SM<char> = failwith "Not implemented"      
+        | AEq (b1, b2) -> aEquality (arithEval b1) (arithEval b2)    (* numeric equality *)
+        | ALt (b1, b2) -> aLessThan (arithEval b1) (arithEval b2)    (* numeric less than *)
 
-    let boolEval b : SM<bool> = failwith "Not implemented"
+        | Not b -> boolEval b >>= fun x -> ret (not x)                (* boolean not *)
+        | Conj (b1, b2) -> aConj (boolEval b1) (boolEval b2)                       (* boolean conjunction *)
+
+        | IsVowel c -> charEval c >>= fun x -> ret("aeiouyæøå".Contains(System.Char.ToLower(x)))    (* check for vowel *)
+        | IsLetter c -> charEval c >>= fun x -> ret(System.Char.IsLetter x)                         (* check for letter *)
+        | IsDigit c -> charEval c >>= fun x -> ret(System.Char.IsDigit x)                           (* check for digit *)
 
 
     type stm =                (* statements *)
