@@ -16,7 +16,7 @@
     let pIntToChar  = pstring "intToChar"
     let pPointValue = pstring "pointValue"
 
-    let pCharToInt  = pstring "charToint"
+    let pCharToInt  = pstring "charToInt"
     let pToUpper    = pstring "toUpper"
     let pToLower    = pstring "toLower"
     let pCharValue  = pstring "charValue"
@@ -38,14 +38,14 @@
     let pletter        = satisfy System.Char.IsLetter <?> "letter"
     let palphanumeric  = satisfy System.Char.IsLetterOrDigit <?> "alphanumeric"
 
-    let spaces         = many whitespaceChar
-    let spaces1        = many1 whitespaceChar
+    let spaces         = many whitespaceChar <?> "space"
+    let spaces1        = many1 whitespaceChar <?> "space1"
 
-    let (.>*>.) (p1 : Parser<'a>) (p2 : Parser<'b>) : Parser<'a * 'b> =  p1 .>> spaces .>>. p2
+    let (.>*>.) (p1 : Parser<'a>) (p2 : Parser<'b>) : Parser<'a * 'b> = p1 .>> spaces .>>. p2
     let (.>*>) (p1 : Parser<'a>) (p2 : Parser<'b>) : Parser<'a> = p1 .>> spaces .>> p2
-    let (>*>.) (p1 : Parser<'a>) (p2 : Parser<'b>) : Parser<'b> = p1 .>> spaces >>. p2
+    let (>*>.) (p1 : Parser<'a>) (p2 : Parser<'b>) : Parser<'b> = p1 >>. spaces >>. p2
 
-    let parenthesise p = p // incorrect (not implemented)
+    let parenthesise p = pchar '(' >*>. p .>*> pchar ')' <?> "parenthesise"
 
     let pid = pstring "not implemented"
 
