@@ -35,9 +35,9 @@
     let pdo       = pstring "do"
     let pdeclare  = pstring "declare"
 
-    let whitespaceChar = satisfy System.Char.IsWhiteSpace <?> "whitespace"
-    let pletter        = satisfy System.Char.IsLetter <?> "letter"
-    let palphanumeric  = satisfy System.Char.IsLetterOrDigit <?> "alphanumeric"
+    let whitespaceChar = satisfy Char.IsWhiteSpace <?> "whitespace"
+    let pletter        = satisfy Char.IsLetter <?> "letter"
+    let palphanumeric  = satisfy Char.IsLetterOrDigit <?> "alphanumeric"
 
     let spaces         = many whitespaceChar <?> "space"
     let spaces1        = many1 whitespaceChar <?> "space1"
@@ -50,27 +50,35 @@
     let curlyBrackets p = pchar '{' >*>. p .>*> pchar '}' <?> "curlyBrackets"
 
     let pid : Parser<string> =
-        pletter <|> pchar '_' .>>. many (palphanumeric <|> pchar '_') |>> (fun (x, xs) -> String(List.toArray (x :: xs)))
+        pletter <|> pchar '_' .>>. many palphanumeric |>> fun (x, charList) -> String(List.toArray (x::charList))
 
     
-    let unop _ = failwith "not implemented"
-    let binop _ = failwith "not implemented"
+    let unop op a = op >*>. a
+    let binop op a b = a .>*> op .>*>. b 
 
     let TermParse, tref = createParserForwardedToRef<aExp>()
     let ProdParse, pref = createParserForwardedToRef<aExp>()
     let AtomParse, aref = createParserForwardedToRef<aExp>()
 
     let AddParse = binop (pchar '+') ProdParse TermParse |>> Add <?> "Add"
-    do tref := choice [AddParse; ProdParse]
-
+    let SubParse = binop (pchar '-') ProdParse TermParse |>> Sub <?> "Sub"
+    do tref := choice [AddParse; SubParse; ProdParse]
+    
+    let DivParse = binop (pchar '/') AtomParse TermParse |>> Div <?> "Div"
     let MulParse = binop (pchar '*') AtomParse ProdParse |>> Mul <?> "Mul"
-    do pref := choice [MulParse; AtomParse]
+    let ModParse = binop (pchar '%') AtomParse TermParse |>> Mod <?> "Mod"
+    do pref := choice [DivParse; MulParse; ModParse; AtomParse]
 
     let NParse   = pint32 |>> N <?> "Int"
+    let VParse   = pid |>> V <?> "Var"
     let ParParse = parenthesise TermParse
-    do aref := choice [NParse; ParParse]
+    let NegParse = unop (pchar '-') AtomParse |>> (fun x -> Mul (N -1, x)) <?> "Neg"
+    let PVParse  = pPointValue >*>. parenthesise TermParse |>> PV <?> "PV"
+    do aref := choice [PVParse; NegParse; VParse; NParse; ParParse]
 
-    let AexpParse = TermParse 
+    let AexpParse = TermParse
+    
+    
 
     let CexpParse = pstring "not implemented"
 
