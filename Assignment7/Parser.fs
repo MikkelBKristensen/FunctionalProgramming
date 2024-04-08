@@ -76,11 +76,15 @@
     let PVParse  = pPointValue >*>. parenthesise TermParse |>> PV <?> "PV"
     do aref := choice [PVParse; NegParse; VParse; NParse; ParParse]
 
+    
+
     let AexpParse = TermParse
     
     
 
-    let CexpParse = pstring "not implemented"
+    let CExpParse, cref = createParserForwardedToRef<cExp>()
+
+    
 
     let BexpParse = pstring "not implemented"
 
