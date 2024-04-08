@@ -1,5 +1,6 @@
 ﻿module ImpParser
 
+    open System
     open Eval
     open Types
 
@@ -46,8 +47,10 @@
     let (>*>.) (p1 : Parser<'a>) (p2 : Parser<'b>) : Parser<'b> = p1 >>. spaces >>. p2
 
     let parenthesise p = pchar '(' >*>. p .>*> pchar ')' <?> "parenthesise"
+    let curlyBrackets p = pchar '{' >*>. p .>*> pchar '}' <?> "curlyBrackets"
 
-    let pid = pstring "not implemented"
+    let pid : Parser<string> =
+        pletter <|> pchar '_' .>>. many (palphanumeric <|> pchar '_') |>> (fun (x, xs) -> String(List.toArray (x :: xs)))
 
     
     let unop _ = failwith "not implemented"
