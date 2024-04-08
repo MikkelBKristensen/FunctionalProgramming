@@ -59,6 +59,7 @@
     let TermParse, tref = createParserForwardedToRef<aExp>()
     let ProdParse, pref = createParserForwardedToRef<aExp>()
     let AtomParse, aref = createParserForwardedToRef<aExp>()
+    let CParse, cref = createParserForwardedToRef<cExp>()
 
     let AddParse = binop (pchar '+') ProdParse TermParse |>> Add <?> "Add"
     let SubParse = binop (pchar '-') ProdParse TermParse |>> Sub <?> "Sub"
@@ -74,15 +75,19 @@
     let ParParse = parenthesise TermParse
     let NegParse = unop (pchar '-') AtomParse |>> (fun x -> Mul (N -1, x)) <?> "Neg"
     let PVParse  = pPointValue >*>. parenthesise TermParse |>> PV <?> "PV"
-    do aref := choice [PVParse; NegParse; VParse; NParse; ParParse]
-
-    
+    let charToIntParse = unop pCharToInt (parenthesise CParse) |>> CharToInt <?> "CharToInt"
+    do aref := choice [charToIntParse; PVParse; NegParse; VParse; NParse; ParParse]
 
     let AexpParse = TermParse
     
+    let charParse = between (pchar ''') (pchar ''') (palphanumeric <|> whitespaceChar) |>> C <?> "C"
+    let toUppperParse = unop pToUpper (parenthesise CParse) |>> ToUpper <?> "ToUpper"
+    let toLowerParse = unop pToLower (parenthesise CParse) |>> ToLower <?> "ToLower"
+    let intToCharParse = unop pIntToChar (parenthesise AexpParse) |>> IntToChar <?> "IntToChar"
+    let CVParse = unop pCharValue (parenthesise AexpParse) |>> CV <?> "CV"
+    do cref := choice [CVParse; intToCharParse; toUppperParse; toLowerParse; charParse]
     
-
-    let CExpParse, cref = createParserForwardedToRef<cExp>()
+    let CexpParse = CParse
 
     
 
