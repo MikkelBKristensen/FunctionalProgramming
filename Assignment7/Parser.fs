@@ -3,14 +3,14 @@
     open System
     open Eval
     open Types
-
+    
     (*
-
+    
     The interfaces for JParsec and FParsecLight are identical and the implementations should always produce the same output
     for successful parses although running times and error messages will differ. Please report any inconsistencies.
-
+    
     *)
-
+    
     open JParsec.TextParser             // Example parser combinator library. Use for CodeJudge.
     // open FParsecLight.TextParser     // Industrial parser-combinator library. Use for Scrabble Project.
     
@@ -34,24 +34,24 @@
     let pwhile    = pstring "while"
     let pdo       = pstring "do"
     let pdeclare  = pstring "declare"
-
+    
     let whitespaceChar = satisfy Char.IsWhiteSpace <?> "whitespace"
     let pletter        = satisfy Char.IsLetter <?> "letter"
     let palphanumeric  = satisfy Char.IsLetterOrDigit <?> "alphanumeric"
-
+    
     let spaces         = many whitespaceChar <?> "space"
     let spaces1        = many1 whitespaceChar <?> "space1"
-
+    
     let (.>*>.) (p1 : Parser<'a>) (p2 : Parser<'b>) : Parser<'a * 'b> = p1 .>> spaces .>>. p2
     let (.>*>) (p1 : Parser<'a>) (p2 : Parser<'b>) : Parser<'a> = p1 .>> spaces .>> p2
     let (>*>.) (p1 : Parser<'a>) (p2 : Parser<'b>) : Parser<'b> = p1 >>. spaces >>. p2
-
+    
     let parenthesise p = pchar '(' >*>. p .>*> pchar ')' <?> "parenthesise"
     let curlyBrackets p = pchar '{' >*>. p .>*> pchar '}' <?> "curlyBrackets"
-
+    
     let pid : Parser<string> =
         pletter <|> pchar '_' .>>. many palphanumeric |>> fun (x, charList) -> String(List.toArray (x::charList))
-
+    
     
     let unop op a = op >*>. a
     let binop op a b = a .>*> op .>*>. b 
