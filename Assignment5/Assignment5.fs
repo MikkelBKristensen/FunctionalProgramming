@@ -45,16 +45,18 @@ let factC x =
         | _ -> factCont (x-1) acc (fun acc' -> cont (x * acc'))
     factCont x 1 (fun x -> x)
 
-// timer function that takes a function and an argument and returns the time it took to execute the function in seconds
 let timer f x =
     let start = System.DateTime.Now
     let res = f x
     let stop = System.DateTime.Now
     (stop - start).TotalSeconds
 
-(* TODO: *)
 (* Compare the running time between factA and factC. Which solution is faster and why? 
-   The running time of factA and factC is the same, but with continuation in FactC, one can avoid stack overflow.
+   After using the timer, I can conclude that the running time of factA and factC is extremely close,
+   as both functions perform a similar number of multiplicative operations.
+   However, using factC has the advantage of explicitly managing the control flow using continuations,
+   which can help avoid stack overflow issues in scenarios where tail call optimization might not be
+   consistently applied by the compiler.
 *)
 
 (* Exercise 5.5 *)
