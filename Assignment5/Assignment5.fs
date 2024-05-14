@@ -52,11 +52,12 @@ let timer f x =
     (stop - start).TotalSeconds
 
 (* Compare the running time between factA and factC. Which solution is faster and why? 
-   After using the timer, I can conclude that the running time of factA and factC is extremely close,
-   as both functions perform a similar number of multiplicative operations.
-   However, using factC has the advantage of explicitly managing the control flow using continuations,
-   which can help avoid stack overflow issues in scenarios where tail call optimization might not be
-   consistently applied by the compiler.
+
+   After using the timer, I can conclude that factA is faster than factC. 
+   While both functions perform a similar number of operations, 
+   factA has less computational overhead because it doesn't need to pass continuations. 
+   FactC does however have the advantage of managing control flow explicitly using continuations, 
+   which can be beneficial in avoiding stack overflow issues.
 *)
 
 (* Exercise 5.5 *)
